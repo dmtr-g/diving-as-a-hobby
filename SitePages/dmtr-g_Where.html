@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<!--
+  ================================================================
+  FILE:    dmtr-g_Where.html
+  PROJECT: Diving as a Hobby
+  AUTHOR:  dmtr-g
+  DESC:    Where to Dive — pure-CSS radio-button carousel of 6
+           YouTube embeds (Privacy-Enhanced Mode) showcasing the
+           world's best dive locations, with dot indicators and
+           prev/next controls. No JavaScript.
+  DEPS:    dmtr-g_Where.css | Font Awesome 5.8.2
+  ================================================================
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Where to Dive | Diving as a Hobby</title>
+
+  <!-- Page stylesheet -->
+  <link rel="stylesheet" type="text/css" href="dmtr-g_Where.css">
+
+  <!-- Font Awesome 5 icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+</head>
+
+<body>
+
+  <!-- ============================================================
+       TOP NAVIGATION
+  ============================================================ -->
+  <nav class="nav-bar top-nav" aria-label="Page navigation">
+    <ul class="nav-left">
+      <li>
+        <a href="../index.html" class="nav-link">
+          <i class="fa fa-2x fa-home" aria-hidden="true"></i>
+          <span class="nav-label">HOME</span>
+        </a>
+      </li>
+      <li>
+        <a href="./dmtr-g_Why.html" class="nav-link">
+          <i class="fa fa-2x fa-question-circle" aria-hidden="true"></i>
+          <span class="nav-label">WHY DIVING</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav-right">
+      <li>
+        <a href="./dmtr-g_How.html" class="nav-link">
+          <i class="fa fa-2x fa-swimming-pool" aria-hidden="true"></i>
+          <span class="nav-label">HOW TO DIVE</span>
+        </a>
+      </li>
+      <li>
+        <a href="./dmtr-g_Who.html" class="nav-link">
+          <i class="fa fa-2x fa-users" aria-hidden="true"></i>
+          <span class="nav-label">COMMUNITY</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       PAGE TITLE
+  ============================================================ -->
+  <h1>6 Best Dive Locations</h1>
+
+  <!-- ============================================================
+       VIDEO CAROUSEL
+       6 YouTube embeds using Privacy-Enhanced Mode (?rel=0)
+       Pure CSS radio-button state machine — no JavaScript
+  ============================================================ -->
+  <section class="carousel" aria-label="Dive location videos">
+    <div class="carousel-inner">
+
+      <!-- SLIDE 1: Blue Corner, Palau -->
+      <input class="carousel-open" type="radio" id="carousel-1" name="carousel" hidden checked>
+      <div class="carousel-item">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/weoHhs6RlTk"
+          title="Blue Corner Palau — Best Dive Site in the Pacific"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+        <div class="info">
+          <p>Blue Corner, Palau: A vibrant coral wall teeming with marine life. When strong currents sweep through,
+            vast schools of fish gather — divers use reef hooks to watch tuna, sharks, and eagle rays parade by.
+            One of the highest shark densities of any single dive site on the planet.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: Manta Night Dive, Hawaii -->
+      <input class="carousel-open" type="radio" id="carousel-2" name="carousel" hidden>
+      <div class="carousel-item">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/yhtx3b5X3oc"
+          title="Manta Night Dive, Hawaii 4K"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+        <div class="info">
+          <p>Manta Night Dive, Kona, Hawaii: An illuminated underwater stage off the coast draws plankton,
+            which in turn draws manta rays. Divers descend to sandy vantage points and watch these gentle giants
+            glide and twirl overhead in a breathtaking nocturnal display.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: Cenote Angelita, Mexico -->
+      <input class="carousel-open" type="radio" id="carousel-3" name="carousel" hidden>
+      <div class="carousel-item">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/iHBvKDOfWiI"
+          title="Cenote Angelita — Underwater River, Mexico"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+        <div class="info">
+          <p>Cenote Angelita, Yucatan, Mexico: At about 30 m depth, a hydrogen sulphate layer creates a visible
+            separation between crystal-clear freshwater above and saltwater below — a cloud-like phenomenon that
+            looks like an underwater river and makes for stunning photography.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: Silfra Fissure, Iceland -->
+      <input class="carousel-open" type="radio" id="carousel-4" name="carousel" hidden>
+      <div class="carousel-item">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/U3eT0qmPJbw"
+          title="Diving Silfra, Iceland — Where the Earth Drifts Apart"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+        <div class="info">
+          <p>Silfra Fissure, Iceland: Dive between the North American and Eurasian tectonic plates with visibility
+            up to 100 m. Drift through vivid blue and green aquatic grasses and touch both continents at the same
+            time — a truly surreal experience open year round.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: Raja Ampat, Indonesia -->
+      <input class="carousel-open" type="radio" id="carousel-5" name="carousel" hidden>
+      <div class="carousel-item">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/UJiVARkYs0c"
+          title="Raja Ampat 4K — Dive into the Dream of Biodiversity"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+        <div class="info">
+          <p>Cape Kri, Raja Ampat, Indonesia: Researchers recorded a world-record number of fish species in a single
+            dive here. Warm water, thriving coral, and a kaleidoscope of marine life make this suitable for divers
+            of all skill levels. Just drift and take it all in.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 6: Secret Bay, Philippines -->
+      <input class="carousel-open" type="radio" id="carousel-6" name="carousel" hidden>
+      <div class="carousel-item">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/I18Bkq3xYNY"
+          title="Mainit Secret Bay, Philippines"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+        <div class="info">
+          <p>Secret Bay (Mainit Muck), Philippines: A macro photographer's paradise in only 3–21 m of water.
+            Look for mantis shrimp, nudibranchs, gobies, and the wonderpus octopus by day. After dark it transforms
+            — Ambon scorpionfish, seahorses, frogfish, and Bobbit worms come out.</p>
+        </div>
+      </div>
+
+      <!-- Next (›) controls -->
+      <label for="carousel-6" class="carousel-control next control-5">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        <span class="visually-hidden">Next</span>
+      </label>
+      <label for="carousel-5" class="carousel-control next control-4">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        <span class="visually-hidden">Next</span>
+      </label>
+      <label for="carousel-4" class="carousel-control next control-3">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        <span class="visually-hidden">Next</span>
+      </label>
+      <label for="carousel-3" class="carousel-control next control-2">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        <span class="visually-hidden">Next</span>
+      </label>
+      <label for="carousel-2" class="carousel-control next control-1">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        <span class="visually-hidden">Next</span>
+      </label>
+      <label for="carousel-1" class="carousel-control next control-6">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        <span class="visually-hidden">Next (wrap around)</span>
+      </label>
+
+      <!-- Prev (‹) controls -->
+      <label for="carousel-2" class="carousel-control prev control-3">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        <span class="visually-hidden">Previous</span>
+      </label>
+      <label for="carousel-1" class="carousel-control prev control-2">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        <span class="visually-hidden">Previous</span>
+      </label>
+      <label for="carousel-3" class="carousel-control prev control-4">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        <span class="visually-hidden">Previous</span>
+      </label>
+      <label for="carousel-4" class="carousel-control prev control-5">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        <span class="visually-hidden">Previous</span>
+      </label>
+      <label for="carousel-5" class="carousel-control prev control-6">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        <span class="visually-hidden">Previous</span>
+      </label>
+      <label for="carousel-6" class="carousel-control prev control-1">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        <span class="visually-hidden">Previous (wrap around)</span>
+      </label>
+
+      <!-- Dot indicators -->
+      <ol class="carousel-indicators" aria-label="Slide indicators">
+        <li><label for="carousel-1" class="carousel-bullet" aria-label="Slide 1">•</label></li>
+        <li><label for="carousel-2" class="carousel-bullet" aria-label="Slide 2">•</label></li>
+        <li><label for="carousel-3" class="carousel-bullet" aria-label="Slide 3">•</label></li>
+        <li><label for="carousel-4" class="carousel-bullet" aria-label="Slide 4">•</label></li>
+        <li><label for="carousel-5" class="carousel-bullet" aria-label="Slide 5">•</label></li>
+        <li><label for="carousel-6" class="carousel-bullet" aria-label="Slide 6">•</label></li>
+      </ol>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BOTTOM NAVIGATION
+  ============================================================ -->
+  <nav class="nav-bar bottom-nav" aria-label="Bottom page navigation">
+    <ul class="nav-left">
+      <li>
+        <a href="../index.html" class="nav-link">
+          <i class="fa fa-2x fa-home" aria-hidden="true"></i>
+          <span class="nav-label">HOME</span>
+        </a>
+      </li>
+      <li>
+        <a href="./dmtr-g_Why.html" class="nav-link">
+          <i class="fa fa-2x fa-question-circle" aria-hidden="true"></i>
+          <span class="nav-label">WHY DIVING</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav-right">
+      <li>
+        <a href="./dmtr-g_How.html" class="nav-link">
+          <i class="fa fa-2x fa-swimming-pool" aria-hidden="true"></i>
+          <span class="nav-label">HOW TO DIVE</span>
+        </a>
+      </li>
+      <li>
+        <a href="./dmtr-g_Who.html" class="nav-link">
+          <i class="fa fa-2x fa-users" aria-hidden="true"></i>
+          <span class="nav-label">COMMUNITY</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+</body>
+</html>

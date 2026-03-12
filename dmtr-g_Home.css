@@ -1,0 +1,705 @@
+/* ================================================================
+   FILE:    dmtr-g_Home.css
+   PROJECT: Diving as a Hobby
+   AUTHOR:  dmtr-g
+   DESC:    Home page styles — sticky glassmorphism nav, animated
+            background zoom, fish ambient layer, dual-lens mask hero,
+            glass info card, search bar, social and contact links.
+   THEME:   Dark underwater / deep ocean
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   DESIGN TOKENS
+---------------------------------------------------------------- */
+:root {
+  --bg-deep:        #030a0f;
+  --glass-bg:       rgba(0, 18, 38, 0.70);
+  --glass-border:   rgba(0, 229, 255, 0.18);
+
+  --cyan:           #00e5ff;
+  --cyan-dim:       rgba(0, 229, 255, 0.12);
+  --cyan-glow:      0 0 12px rgba(0, 229, 255, 0.65), 0 0 28px rgba(0, 229, 255, 0.25);
+  --cyan-glow-soft: 0 0 8px rgba(0, 229, 255, 0.35);
+
+  --text-primary:   #e0f7fa;
+  --text-muted:     #80cbc4;
+
+  --radius-pill:    50px;
+  --radius-card:    16px;
+  --transition:     0.25s ease;
+  --backdrop:       blur(14px);
+}
+
+/* ----------------------------------------------------------------
+   RESET & BASE
+---------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg-deep);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ----------------------------------------------------------------
+   ANIMATED BACKGROUND — slow zoom gives underwater movement feeling
+---------------------------------------------------------------- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -15%;
+  background-image: url("./Media/page-assets/pexels-harvey-clements-15763632.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+  pointer-events: none;
+  animation: bgZoom 30s ease-in-out infinite;
+}
+
+/* ----------------------------------------------------------------
+   GRADIENT OVERLAY — bright aqua at top (surface), dark at bottom
+---------------------------------------------------------------- */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 180, 220, 0.40) 0%,
+    rgba(0, 110, 165, 0.20) 18%,
+    rgba(0, 40, 80, 0.05)  40%,
+    rgba(3, 10, 15, 0.55) 100%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ----------------------------------------------------------------
+   FISH ANIMATION BACKGROUND — synced zoom with background
+---------------------------------------------------------------- */
+.fish-grid {
+  position: fixed;
+  inset: -15%;
+  pointer-events: none;
+  z-index: 0;
+  transform-origin: center center;
+  animation: bgZoom 30s ease-in-out infinite;
+}
+
+.fa-fish {
+  position: absolute;
+  opacity: 0;
+  color: rgba(0, 229, 255, 0.08);
+  text-shadow: 0 0 30px rgba(0, 229, 255, 0.05);
+  animation: fishPulse 7s ease-in-out infinite;
+}
+
+.fa-fish:nth-child(1)  { top:  6%; left:  4%;  font-size: 2.2em; transform: rotate(18deg);             animation-delay: 0s;   }
+.fa-fish:nth-child(2)  { top: 14%; left: 80%;  font-size: 3.2em; transform: scaleX(-1) rotate(-15deg); animation-delay: 0.6s; }
+.fa-fish:nth-child(3)  { top: 28%; left: 18%;  font-size: 1.8em; transform: rotate(30deg);             animation-delay: 1.2s; }
+.fa-fish:nth-child(4)  { top: 40%; left: 88%;  font-size: 3.6em; transform: scaleX(-1) rotate(-10deg); animation-delay: 1.8s; }
+.fa-fish:nth-child(5)  { top: 55%; left:  7%;  font-size: 2.6em; transform: rotate(22deg);             animation-delay: 2.4s; }
+.fa-fish:nth-child(6)  { top: 68%; left: 72%;  font-size: 2.0em; transform: scaleX(-1) rotate(-28deg); animation-delay: 3.0s; }
+.fa-fish:nth-child(7)  { top: 80%; left: 32%;  font-size: 3.0em; transform: rotate(12deg);             animation-delay: 3.6s; }
+.fa-fish:nth-child(8)  { top: 91%; left: 86%;  font-size: 2.4em; transform: scaleX(-1) rotate(-20deg); animation-delay: 4.2s; }
+.fa-fish:nth-child(9)  { top: 22%; left: 52%;  font-size: 3.8em; transform: rotate(8deg);              animation-delay: 4.8s; }
+.fa-fish:nth-child(10) { top: 48%; left: 40%;  font-size: 1.9em; transform: scaleX(-1) rotate(-22deg); animation-delay: 5.4s; }
+.fa-fish:nth-child(11) { top: 74%; left: 54%;  font-size: 2.8em; transform: rotate(35deg);             animation-delay: 0.9s; }
+.fa-fish:nth-child(12) { top: 94%; left: 14%;  font-size: 2.3em; transform: scaleX(-1) rotate(-16deg); animation-delay: 2.1s; }
+.fa-fish:nth-child(13) { top:  3%; left: 32%;  font-size: 2.1em; transform: rotate(5deg);              animation-delay: 1.5s; }
+.fa-fish:nth-child(14) { top: 11%; left: 64%;  font-size: 2.9em; transform: scaleX(-1) rotate(-8deg);  animation-delay: 2.7s; }
+.fa-fish:nth-child(15) { top: 19%; left: 38%;  font-size: 1.6em; transform: rotate(25deg);             animation-delay: 3.3s; }
+.fa-fish:nth-child(16) { top: 33%; left: 71%;  font-size: 3.4em; transform: rotate(14deg);             animation-delay: 0.3s; }
+.fa-fish:nth-child(17) { top: 37%; left: 27%;  font-size: 2.0em; transform: scaleX(-1) rotate(-30deg); animation-delay: 4.5s; }
+.fa-fish:nth-child(18) { top: 51%; left: 59%;  font-size: 2.7em; transform: rotate(19deg);             animation-delay: 1.0s; }
+.fa-fish:nth-child(19) { top: 59%; left: 24%;  font-size: 3.1em; transform: scaleX(-1) rotate(-7deg);  animation-delay: 5.1s; }
+.fa-fish:nth-child(20) { top: 63%; left: 91%;  font-size: 1.7em; transform: rotate(33deg);             animation-delay: 2.8s; }
+.fa-fish:nth-child(21) { top: 71%; left: 11%;  font-size: 2.9em; transform: scaleX(-1) rotate(-24deg); animation-delay: 0.4s; }
+.fa-fish:nth-child(22) { top: 77%; left: 78%;  font-size: 2.3em; transform: rotate(11deg);             animation-delay: 3.8s; }
+.fa-fish:nth-child(23) { top: 84%; left: 46%;  font-size: 1.9em; transform: scaleX(-1) rotate(-18deg); animation-delay: 5.6s; }
+.fa-fish:nth-child(24) { top: 89%; left: 62%;  font-size: 3.3em; transform: rotate(27deg);             animation-delay: 1.7s; }
+.fa-fish:nth-child(25) { top: 97%; left: 45%;  font-size: 2.1em; transform: scaleX(-1) rotate(-13deg); animation-delay: 4.0s; }
+.fa-fish:nth-child(26) { top: 44%; left: 16%;  font-size: 3.5em; transform: rotate(6deg);              animation-delay: 2.3s; }
+.fa-fish:nth-child(27) { top: 18%; left:  2%;  font-size: 2.0em; transform: scaleX(-1) rotate(-38deg); animation-delay: 5.9s; }
+
+/* ----------------------------------------------------------------
+   NAVIGATION HEADER — sticky full-width glassmorphism bar
+---------------------------------------------------------------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 40px;
+  background: rgba(0, 4, 14, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.16);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+}
+
+.nav-left,
+.nav-right {
+  list-style: none;
+}
+
+.nav-left ul,
+.nav-right ul {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+}
+
+/* Glassmorphism nav pill */
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 9px 14px;
+  background: rgba(0, 18, 38, 0.55);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--cyan);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9em;
+  box-shadow: var(--cyan-glow-soft);
+  transition: background var(--transition), box-shadow var(--transition), border-color var(--transition);
+  overflow: hidden;
+}
+
+.nav-link:hover {
+  background: var(--cyan-dim);
+  border-color: rgba(0, 229, 255, 0.55);
+  box-shadow: var(--cyan-glow);
+}
+
+.nav-label {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.92em;
+  font-weight: bold;
+  opacity: 0;
+  margin-left: 0;
+  vertical-align: middle;
+  transition: max-width 0.30s ease, opacity 0.25s ease, margin-left 0.30s ease;
+}
+
+/* Slide label in alongside icon — no display swap, no flicker */
+.nav-link:hover .nav-label { max-width: 160px; opacity: 1; margin-left: 7px; }
+
+/* ----------------------------------------------------------------
+   MASK SECTION — clean professional card framing the diving mask.
+   Two oval lenses (eyes) + bridge = mask. Clean 20px radius card,
+   not a face shape — professional and readable.
+---------------------------------------------------------------- */
+.mask-section {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: clamp(580px, 74vw, 1020px);
+  max-width: 96vw;
+  margin: 32px auto 48px;
+  padding: 0;
+  gap: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(
+    175deg,
+    rgba(0, 4, 16, 0.97) 0%,
+    rgba(0, 10, 26, 0.95) 35%,
+    rgba(0, 18, 44, 0.90) 65%,
+    rgba(0, 24, 54, 0.85) 100%
+  );
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(0, 229, 255, 0.30);
+  box-shadow:
+    0 0 0 1px rgba(0, 229, 255, 0.08),
+    0 0 40px rgba(0, 229, 255, 0.22),
+    0 0 100px rgba(0, 229, 255, 0.09),
+    0 24px 60px rgba(0, 0, 0, 0.6),
+    inset 0 0 80px rgba(0, 4, 16, 0.35);
+  animation: maskGlow 6s ease-in-out infinite;
+}
+
+/* ----------------------------------------------------------------
+   HERO TITLE — top accent stripe + clean centered headline
+---------------------------------------------------------------- */
+h1 {
+  width: 100%;
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: clamp(1.4rem, 2.6vw, 3.2rem);
+  color: var(--cyan);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 10px rgba(0, 229, 255, 0.95),
+    0 0 26px rgba(0, 229, 255, 0.70),
+    0 0 50px rgba(0, 229, 255, 0.25),
+    0 2px 8px rgba(0, 0, 0, 0.95);
+  padding: 32px 48px 24px;
+  margin: 0;
+  /* top cyan accent line */
+  border-top: 3px solid rgba(0, 229, 255, 0.55);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.18);
+  background: rgba(0, 229, 255, 0.025);
+}
+
+/* ----------------------------------------------------------------
+   SOCIAL LINKS
+---------------------------------------------------------------- */
+.socials {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: rgba(0, 18, 38, 0.55);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--cyan);
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: var(--cyan-glow-soft);
+  transition: background var(--transition), box-shadow var(--transition), border-color var(--transition);
+  overflow: hidden;
+}
+
+.social-link:hover {
+  background: var(--cyan-dim);
+  border-color: rgba(0, 229, 255, 0.55);
+  box-shadow: var(--cyan-glow);
+}
+
+.social-link:hover .nav-label { max-width: 120px; opacity: 1; margin-left: 7px; }
+
+/* ----------------------------------------------------------------
+   DIVING MASK FRAME — lens housing area (top portion of card).
+   Dark tint + clean bottom divider separating it from content.
+---------------------------------------------------------------- */
+.mask-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: rgba(0, 2, 8, 0.22);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.20);
+}
+
+/* ----------------------------------------------------------------
+   MASK SKIRT — content area below the lenses.
+---------------------------------------------------------------- */
+.mask-skirt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 36px 56px 60px;
+  background: rgba(0, 24, 52, 0.10);
+}
+
+/* ----------------------------------------------------------------
+   MASK LENSES ROW — left eye | bridge | right eye
+---------------------------------------------------------------- */
+.mask-lenses {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 32px 48px 40px;
+}
+
+/* ----------------------------------------------------------------
+   LENS SHAPES — clean ellipses, mirror images
+---------------------------------------------------------------- */
+.left-eye {
+  width: clamp(220px, 29vw, 460px);
+  height: clamp(110px, 20vw, 230px);
+  object-fit: cover;
+  /* wider-than-tall ellipse = natural eye/lens shape */
+  border-radius: 50%;
+  border: 2px solid rgba(0, 229, 255, 0.65);
+  box-shadow:
+    0 0 14px rgba(0, 229, 255, 0.55),
+    0 0 36px rgba(0, 229, 255, 0.18),
+    inset 0 0 22px rgba(0, 229, 255, 0.08);
+  animation: borderPulse 4s ease-in-out infinite;
+}
+
+.right-eye {
+  width: clamp(220px, 29vw, 460px);
+  height: clamp(110px, 20vw, 230px);
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 229, 255, 0.65);
+  box-shadow:
+    0 0 14px rgba(0, 229, 255, 0.55),
+    0 0 36px rgba(0, 229, 255, 0.18),
+    inset 0 0 22px rgba(0, 229, 255, 0.08);
+  animation: borderPulse 4s ease-in-out infinite 0.5s;
+}
+
+/* ----------------------------------------------------------------
+   MASK BRIDGE — nose-piece connecting the two lenses
+---------------------------------------------------------------- */
+.mask-bridge {
+  width: clamp(24px, 3vw, 50px);
+  height: clamp(44px, 6vw, 90px);
+  flex-shrink: 0;
+  align-self: center;
+  background: rgba(0, 229, 255, 0.04);
+  border-top: 1px solid rgba(0, 229, 255, 0.40);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.40);
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.14);
+}
+
+/* ----------------------------------------------------------------
+   MAIN CONTENT COLUMN
+---------------------------------------------------------------- */
+.content {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ----------------------------------------------------------------
+   GLASS INFO CARD — clean rectangular card, professional layout
+---------------------------------------------------------------- */
+.glass-card {
+  width: 100%;
+  text-align: center;
+  background: rgba(0, 14, 32, 0.65);
+  border: 1px solid rgba(0, 229, 255, 0.14);
+  border-radius: var(--radius-card);
+  backdrop-filter: var(--backdrop);
+  -webkit-backdrop-filter: var(--backdrop);
+  padding: 36px 40px;
+  box-shadow:
+    0 0 20px rgba(0, 229, 255, 0.08),
+    inset 0 0 40px rgba(0, 229, 255, 0.03);
+  animation: cardGlow 6s ease-in-out infinite;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+.glass-card:hover {
+  border-color: rgba(0, 229, 255, 0.35);
+  box-shadow:
+    0 0 30px rgba(0, 229, 255, 0.18),
+    inset 0 0 50px rgba(0, 229, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+.glass-card h2 {
+  color: var(--cyan);
+  font-size: clamp(0.95rem, 1.1vw, 1.2rem);
+  letter-spacing: 0.06em;
+  margin: 16px 0 8px;
+  text-shadow: var(--cyan-glow-soft);
+}
+
+.glass-card h3 {
+  color: var(--text-muted);
+  font-size: clamp(0.85rem, 0.75vw, 0.92rem);
+  font-weight: normal;
+  line-height: 1.7;
+}
+
+/* ----------------------------------------------------------------
+   SEARCH BAR
+---------------------------------------------------------------- */
+.search {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-label {
+  font-size: clamp(0.78rem, 1.1vw, 1rem);
+  color: var(--cyan);
+  text-shadow: var(--cyan-glow-soft);
+  text-align: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 11px 16px;
+  background: rgba(0, 14, 32, 0.65);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-size: 0.88em;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.65;
+}
+
+.search-input:focus {
+  border-color: rgba(0, 229, 255, 0.50);
+  box-shadow: var(--cyan-glow-soft);
+}
+
+.search-btn {
+  padding: 10px 28px;
+  background: transparent;
+  border: 1px solid rgba(0, 229, 255, 0.45);
+  border-radius: 10px;
+  color: var(--cyan);
+  font-size: 0.95em;
+  cursor: pointer;
+  box-shadow: var(--cyan-glow-soft);
+  transition: background var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.search-btn:hover {
+  background: var(--cyan-dim);
+  border-color: var(--cyan);
+  box-shadow: var(--cyan-glow);
+}
+
+/* ----------------------------------------------------------------
+   CONTACT LINK
+---------------------------------------------------------------- */
+.contact-link-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  background: rgba(0, 18, 38, 0.55);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  backdrop-filter: var(--backdrop);
+  -webkit-backdrop-filter: var(--backdrop);
+  color: var(--cyan);
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: var(--cyan-glow-soft);
+  transition: background var(--transition), box-shadow var(--transition), border-color var(--transition);
+  overflow: hidden;
+}
+
+.contact-link:hover {
+  background: var(--cyan-dim);
+  border-color: rgba(0, 229, 255, 0.55);
+  box-shadow: var(--cyan-glow);
+}
+
+.contact-link:hover .nav-label { max-width: 120px; opacity: 1; margin-left: 7px; }
+
+/* ----------------------------------------------------------------
+   KEYFRAME ANIMATIONS
+---------------------------------------------------------------- */
+
+@keyframes bgZoom {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fishPulse {
+  0%   { opacity: 0; }
+  50%  { opacity: 0.55; }
+  100% { opacity: 0; }
+}
+
+@keyframes borderPulse {
+  0%   { box-shadow: 0 0 8px rgba(0, 229, 255, 0.38), inset 0 0 20px rgba(0, 229, 255, 0.05); }
+  50%  { box-shadow: 0 0 24px rgba(0, 229, 255, 0.80), 0 0 50px rgba(0, 229, 255, 0.18), inset 0 0 28px rgba(0, 229, 255, 0.08); }
+  100% { box-shadow: 0 0 8px rgba(0, 229, 255, 0.38), inset 0 0 20px rgba(0, 229, 255, 0.05); }
+}
+
+@keyframes maskGlow {
+  0%   { box-shadow: 0 0 0 1px rgba(0,229,255,0.06), 0 0 28px rgba(0,229,255,0.18), 0 0 80px rgba(0,229,255,0.08), 0 24px 60px rgba(0,0,0,0.6), inset 0 0 80px rgba(0,4,16,0.35); }
+  50%  { box-shadow: 0 0 0 1px rgba(0,229,255,0.12), 0 0 50px rgba(0,229,255,0.36), 0 0 120px rgba(0,229,255,0.15), 0 24px 60px rgba(0,0,0,0.6), inset 0 0 80px rgba(0,4,16,0.35); }
+  100% { box-shadow: 0 0 0 1px rgba(0,229,255,0.06), 0 0 28px rgba(0,229,255,0.18), 0 0 80px rgba(0,229,255,0.08), 0 24px 60px rgba(0,0,0,0.6), inset 0 0 80px rgba(0,4,16,0.35); }
+}
+
+@keyframes cardGlow {
+  0%   { box-shadow: 0 0 12px rgba(0, 229, 255, 0.07), inset 0 0 40px rgba(0, 229, 255, 0.02); }
+  50%  { box-shadow: 0 0 28px rgba(0, 229, 255, 0.16), inset 0 0 55px rgba(0, 229, 255, 0.05); }
+  100% { box-shadow: 0 0 12px rgba(0, 229, 255, 0.07), inset 0 0 40px rgba(0, 229, 255, 0.02); }
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ----------------------------------------------------------------
+   RESPONSIVE — Mobile (max 767px)
+---------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .fish-grid { animation: none; }
+  .fa-fish   { display: none;  }
+
+  .header {
+    padding: 12px 16px;
+  }
+
+  .nav-left ul,
+  .nav-right ul {
+    gap: 8px;
+  }
+
+  .nav-link {
+    padding: 7px 10px;
+    font-size: 0.82em;
+  }
+
+  h1 {
+    font-size: clamp(1.1rem, 5vw, 1.8rem);
+    letter-spacing: 0.10em;
+    padding: 24px 16px 18px;
+  }
+
+  .socials {
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 0 8px;
+  }
+
+  .social-link {
+    padding: 6px 10px;
+    font-size: 0.82em;
+  }
+
+  .mask-section {
+    width: 96vw;
+    max-width: 96vw;
+    margin: 16px auto 32px;
+    border-radius: var(--radius-card);
+    animation: none;
+  }
+
+  .mask-skirt {
+    padding: 24px 16px 40px;
+  }
+
+  .mask-lenses {
+    flex-direction: column;
+    padding: 16px 14px 24px;
+  }
+
+  .mask-bridge {
+    width: 55%;
+    height: 18px;
+    border-top: none;
+    border-left: 1px solid rgba(0, 229, 255, 0.40);
+    border-right: 1px solid rgba(0, 229, 255, 0.40);
+    align-self: center;
+  }
+
+  .left-eye,
+  .right-eye {
+    width: 88vw;
+    height: 55vw;
+    border-radius: 16px;
+    animation: none;
+  }
+
+  .content      { max-width: 100%; }
+  .glass-card   { padding: 24px 20px; animation: none; }
+  .glass-card h2 { font-size: 0.95em; }
+  .glass-card h3 { font-size: 0.78em; }
+  .search-label  { font-size: 0.9em; }
+}
+
+/* ----------------------------------------------------------------
+   RESPONSIVE — Mobile Landscape
+---------------------------------------------------------------- */
+@media (max-width: 767px) and (orientation: landscape) {
+  .content { max-width: 78%; }
+}
+
+/* ----------------------------------------------------------------
+   RESPONSIVE — Tablet (768px–1023px)
+---------------------------------------------------------------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .header { padding: 14px 28px; }
+
+  .nav-left ul,
+  .nav-right ul { gap: 10px; }
+
+  h1 { font-size: clamp(1.2rem, 3.2vw, 2.6rem); }
+
+  .left-eye,
+  .right-eye {
+    width: clamp(180px, 24vw, 360px);
+    height: clamp(90px, 12vw, 180px);
+  }
+
+  .mask-section {
+    width: clamp(480px, 88vw, 860px);
+  }
+
+  .mask-skirt {
+    padding: 28px 32px 52px;
+  }
+
+  .content {
+    max-width: 440px;
+  }
+
+  .glass-card { padding: 28px 32px; }
+}
+
+/* ----------------------------------------------------------------
+   RESPONSIVE — Small Desktop (1024px–1200px)
+---------------------------------------------------------------- */
+@media (min-width: 1024px) and (max-width: 1200px) {
+  .header { padding: 14px 32px; }
+
+  .mask-section {
+    width: clamp(580px, 80vw, 960px);
+  }
+}

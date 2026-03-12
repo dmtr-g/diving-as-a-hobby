@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!--
+  ================================================================
+  FILE:    dmtr-g_Why.html
+  PROJECT: Diving as a Hobby
+  AUTHOR:  dmtr-g
+  DESC:    Why Diving — pure-CSS image carousel (vertical scroll)
+           presenting 5 reasons to take up scuba diving as a hobby.
+           State managed entirely by CSS sibling selectors; no JS.
+  DEPS:    dmtr-g_Why.css | Font Awesome 5.8.2
+  ================================================================
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Diving | Diving as a Hobby</title>
+
+  <!-- Page stylesheet -->
+  <link rel="stylesheet" type="text/css" href="dmtr-g_Why.css">
+
+  <!-- Font Awesome 5 icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+</head>
+
+<body>
+
+  <!-- ============================================================
+       TOP NAVIGATION
+       Links back to home and to sibling pages
+  ============================================================ -->
+  <nav class="nav-bar top-nav" aria-label="Page navigation">
+    <ul class="nav-left">
+      <li>
+        <a href="../index.html" class="nav-link">
+          <i class="fa fa-2x fa-home" aria-hidden="true"></i>
+          <span class="nav-label">HOME</span>
+        </a>
+      </li>
+      <li>
+        <a href="./dmtr-g_How.html" class="nav-link">
+          <i class="fa fa-2x fa-swimming-pool" aria-hidden="true"></i>
+          <span class="nav-label">HOW TO DIVE</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav-right">
+      <li>
+        <a href="./dmtr-g_Where.html" class="nav-link">
+          <i class="fa fa-2x fa-images" aria-hidden="true"></i>
+          <span class="nav-label">WHERE TO DIVE</span>
+        </a>
+      </li>
+      <li>
+        <a href="./dmtr-g_Who.html" class="nav-link">
+          <i class="fa fa-2x fa-users" aria-hidden="true"></i>
+          <span class="nav-label">COMMUNITY</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       PAGE HEADER
+  ============================================================ -->
+  <header class="page-header">
+    <h1>Why Diving <i class="fas fa-swimmer" aria-hidden="true"></i></h1>
+    <h2>5 Reasons Why You Should Try Scuba Diving</h2>
+  </header>
+
+  <!-- ============================================================
+       PURE CSS CAROUSEL
+       Uses hidden radio inputs to track which slide is active.
+       No JavaScript required — state managed entirely by CSS
+       sibling selectors (.carousel-open:checked + .carousel-item).
+  ============================================================ -->
+  <section class="carousel" aria-label="Reasons to dive slideshow">
+    <div class="carousel-inner">
+
+      <!-- SLIDE 1: Physical Fitness -->
+      <input class="carousel-open" type="radio" id="carousel-1" name="carousel" hidden checked>
+      <div class="carousel-item">
+        <img src="../Media/page-assets/pexels-diego-sandoval-4766819.jpg"
+          alt="Woman in diving costume on the ocean floor" loading="lazy">
+        <div class="info">
+          <h2>Reason 1: Physical Fitness</h2>
+          <p>Diving is a great way to stay physically fit. It is a full-body workout that improves cardiovascular
+            health, strength, and flexibility.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: Mental Well-being -->
+      <input class="carousel-open" type="radio" id="carousel-2" name="carousel" hidden>
+      <div class="carousel-item">
+        <img src="../Media/page-assets/diver-2611773_1920.png" alt="Vintage old diving helmet" loading="lazy">
+        <div class="info">
+          <h2>Reason 2: Mental Well-being</h2>
+          <p>Diving provides a sense of peace and tranquility underwater, reducing stress and promoting mental
+            well-being. It also helps improve focus and mindfulness.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: Connection with Nature -->
+      <input class="carousel-open" type="radio" id="carousel-3" name="carousel" hidden>
+      <div class="carousel-item">
+        <img src="../Media/page-assets/pexels-jonaorle-12628692.jpg" alt="Woman holding her breath underwater" loading="lazy">
+        <div class="info">
+          <h2>Reason 3: Connection with Nature</h2>
+          <p>Diving allows you to connect with the underwater world and experience the beauty of marine life. It
+            fosters a deeper appreciation for nature and promotes environmental awareness.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: Adventure and Exploration -->
+      <input class="carousel-open" type="radio" id="carousel-4" name="carousel" hidden>
+      <div class="carousel-item">
+        <img src="../Media/page-assets/scorpion-17349.jpg" alt="Scorpion fish underwater" loading="lazy">
+        <div class="info">
+          <h2>Reason 4: Adventure and Exploration</h2>
+          <p>Diving offers thrilling adventures and opportunities for exploration. Discovering underwater caves,
+            shipwrecks, and unique marine ecosystems will satisfy your sense of adventure.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: Discover the Hidden World -->
+      <input class="carousel-open" type="radio" id="carousel-5" name="carousel" hidden>
+      <div class="carousel-item">
+        <img src="../Media/page-assets/pexels-jess-loiterton-5008885.jpg" alt="Woman diving in the reef" loading="lazy">
+        <div class="info">
+          <h2>Reason 5: Discover the Hidden World</h2>
+          <p>Diving opens up a hidden world beneath the surface, where you can encounter incredible marine creatures
+            and witness stunning underwater landscapes.</p>
+        </div>
+      </div>
+
+      <!-- Down (next) controls — appear when the previous slide is checked -->
+      <label for="carousel-5" class="carousel-control next control-4">
+        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        <span class="visually-hidden">Next slide</span>
+      </label>
+      <label for="carousel-4" class="carousel-control next control-3">
+        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        <span class="visually-hidden">Next slide</span>
+      </label>
+      <label for="carousel-3" class="carousel-control next control-2">
+        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        <span class="visually-hidden">Next slide</span>
+      </label>
+      <label for="carousel-2" class="carousel-control next control-1">
+        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        <span class="visually-hidden">Next slide</span>
+      </label>
+      <label for="carousel-1" class="carousel-control next control-5">
+        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        <span class="visually-hidden">Next slide (wrap around)</span>
+      </label>
+
+      <!-- Up (previous) controls -->
+      <label for="carousel-1" class="carousel-control prev control-2">
+        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+        <span class="visually-hidden">Previous slide</span>
+      </label>
+      <label for="carousel-2" class="carousel-control prev control-3">
+        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+        <span class="visually-hidden">Previous slide</span>
+      </label>
+      <label for="carousel-3" class="carousel-control prev control-4">
+        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+        <span class="visually-hidden">Previous slide</span>
+      </label>
+      <label for="carousel-4" class="carousel-control prev control-5">
+        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+        <span class="visually-hidden">Previous slide</span>
+      </label>
+      <label for="carousel-5" class="carousel-control prev control-1">
+        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+        <span class="visually-hidden">Previous slide (wrap around)</span>
+      </label>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BOTTOM NAVIGATION (repeat for convenience)
+  ============================================================ -->
+  <nav class="nav-bar bottom-nav" aria-label="Bottom page navigation">
+    <ul class="nav-left">
+      <li>
+        <a href="../index.html" class="nav-link">
+          <i class="fa fa-2x fa-home" aria-hidden="true"></i>
+          <span class="nav-label">HOME</span>
+        </a>
+      </li>
+      <li>
+        <a href="./dmtr-g_How.html" class="nav-link">
+          <i class="fa fa-2x fa-swimming-pool" aria-hidden="true"></i>
+          <span class="nav-label">HOW TO DIVE</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav-right">
+      <li>
+        <a href="./dmtr-g_Where.html" class="nav-link">
+          <i class="fa fa-2x fa-images" aria-hidden="true"></i>
+          <span class="nav-label">WHERE TO DIVE</span>
+        </a>
+      </li>
+      <li>
+        <a href="./dmtr-g_Who.html" class="nav-link">
+          <i class="fa fa-2x fa-users" aria-hidden="true"></i>
+          <span class="nav-label">COMMUNITY</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+</body>
+</html>

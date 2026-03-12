@@ -1,0 +1,384 @@
+/* ================================================================
+   FILE:    dmtr-g_Why.css
+   PROJECT: Diving as a Hobby
+   AUTHOR:  dmtr-g
+   DESC:    Why Diving page styles — pure-CSS vertical image
+            carousel, slide info boxes, up/down chevron controls,
+            and entrance animations.
+   THEME:   Dark underwater / deep ocean (shared design tokens)
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   DESIGN TOKENS
+---------------------------------------------------------------- */
+:root {
+  --bg-deep:        #030a0f;
+  --glass-bg:       rgba(0, 20, 40, 0.70);
+  --glass-border:   rgba(0, 229, 255, 0.2);
+
+  --cyan:           #00e5ff;
+  --cyan-dim:       rgba(0, 229, 255, 0.15);
+  --cyan-glow:      0 0 12px rgba(0, 229, 255, 0.7), 0 0 30px rgba(0, 229, 255, 0.3);
+  --cyan-glow-soft: 0 0 8px rgba(0, 229, 255, 0.4);
+
+  --text-primary:   #e0f7fa;
+  --text-muted:     #80cbc4;
+
+  --radius-pill:    50px;
+  --radius-card:    16px;
+  --transition:     0.25s ease;
+  --backdrop:       blur(12px);
+}
+
+/* ----------------------------------------------------------------
+   RESET & BASE
+---------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg-deep);
+  /* Background image of an underwater scene */
+  background-image: url("../Media/page-assets/pexels-porapak-apichodilok-346776.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* ----------------------------------------------------------------
+   NAVIGATION BAR (shared top + bottom)
+---------------------------------------------------------------- */
+.nav-bar {
+  display: flex;
+  justify-content: center;
+  gap: 55%;
+  padding: 16px 20px;
+}
+
+.nav-left,
+.nav-right {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+}
+
+/* Glassmorphism nav pill — same pattern as home page */
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  padding: 10px 14px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  backdrop-filter: var(--backdrop);
+  -webkit-backdrop-filter: var(--backdrop);
+  color: var(--cyan);
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: var(--cyan-glow-soft);
+  transition: background var(--transition), box-shadow var(--transition), border-color var(--transition);
+  overflow: hidden;
+}
+
+.nav-link:hover {
+  background: var(--cyan-dim);
+  border-color: var(--cyan);
+  box-shadow: var(--cyan-glow);
+}
+
+/* Label hidden by default — icon only */
+.nav-label {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.92em;
+  font-weight: bold;
+  opacity: 0;
+  margin-left: 0;
+  vertical-align: middle;
+  transition: max-width 0.30s ease, opacity 0.25s ease, margin-left 0.30s ease;
+}
+
+.nav-link:hover .nav-label { max-width: 160px; opacity: 1; margin-left: 7px; }
+
+/* ----------------------------------------------------------------
+   PAGE HEADER
+---------------------------------------------------------------- */
+.page-header {
+  max-width: 60%;
+  margin: 0 auto;
+  padding: 30px 5% 10px;
+}
+
+h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(1.6rem, 3vw, 3.5rem);
+  color: var(--cyan);
+  text-shadow: var(--cyan-glow);
+  animation: titleWave 10s ease-in-out infinite;
+}
+
+h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(1rem, 2vw, 2rem);
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+/* ----------------------------------------------------------------
+   CAROUSEL CONTAINER
+---------------------------------------------------------------- */
+.carousel {
+  position: relative;
+  max-width: 60%;
+  margin: 30px auto;
+  /* Layered cyan glow shadow around the carousel box */
+  box-shadow:
+    0 0 30px rgba(0, 229, 255, 0.2),
+    25px 25px 26px rgba(0, 0, 0, 0.6),
+   -25px -25px 26px rgba(0, 0, 0, 0.6);
+  height: 900px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--glass-bg);
+  backdrop-filter: var(--backdrop);
+  -webkit-backdrop-filter: var(--backdrop);
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+  margin: auto;
+}
+
+/* ----------------------------------------------------------------
+   CAROUSEL SLIDE — pure CSS state machine
+   Hidden radio inputs control which slide is visible via:
+   .carousel-open:checked + .carousel-item { opacity: 1 }
+---------------------------------------------------------------- */
+.carousel-item {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.9s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+  height: 700px;
+  margin-top: 20%;
+}
+
+/* When the matching radio is checked, show this slide */
+.carousel-open:checked + .carousel-item {
+  position: static;
+  opacity: 1;
+}
+
+.carousel-item img {
+  width: 90%;
+  height: 70%;
+  border-radius: 10px;
+  object-fit: cover;
+  /* Subtle glow on slide images */
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+  border: 1px solid var(--glass-border);
+}
+
+/* ----------------------------------------------------------------
+   SLIDE INFO BOX
+---------------------------------------------------------------- */
+.info {
+  color: var(--text-primary);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+  margin: 16px auto 0;
+  padding: 16px 12%;
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid var(--glass-border);
+  border-radius: 30px;
+  backdrop-filter: var(--backdrop);
+  -webkit-backdrop-filter: var(--backdrop);
+  animation: fadeInUp 0.5s ease;
+}
+
+.info h2 {
+  font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+  color: var(--cyan);
+  margin-bottom: 8px;
+  animation: none; /* override page h2 animation in this context */
+}
+
+.info p {
+  font-size: clamp(0.7rem, 1vw, 1rem);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ----------------------------------------------------------------
+   CAROUSEL CONTROLS (up/down chevrons)
+   Shown only when their matching radio sibling is checked
+---------------------------------------------------------------- */
+.carousel-control {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  color: var(--cyan);
+  cursor: pointer;
+  display: none;       /* hidden by default, shown via CSS sibling rule below */
+  font-size: 40px;
+  height: 40px;
+  line-height: 35px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  width: 40px;
+  z-index: 10;
+  backdrop-filter: var(--backdrop);
+  transition: background var(--transition), box-shadow var(--transition);
+}
+
+.carousel-control.prev { left: 5%; top: 80%; }
+.carousel-control.next { right: 5%; top: 80%; }
+
+.carousel-control:hover {
+  background: var(--cyan-dim);
+  box-shadow: var(--cyan-glow);
+}
+
+/* Show the matching control when its radio is active */
+#carousel-1:checked ~ .control-1,
+#carousel-2:checked ~ .control-2,
+#carousel-3:checked ~ .control-3,
+#carousel-4:checked ~ .control-4,
+#carousel-5:checked ~ .control-5 {
+  display: block;
+}
+
+/* ----------------------------------------------------------------
+   ACCESSIBILITY HELPER
+---------------------------------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  border: 0;
+}
+
+/* ----------------------------------------------------------------
+   KEYFRAME ANIMATIONS
+---------------------------------------------------------------- */
+
+/* Horizontal drift on the page title */
+@keyframes titleWave {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(-20px); }
+  100% { transform: translateX(0); }
+}
+
+/* Slide info box entrance */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ----------------------------------------------------------------
+   RESPONSIVE — Mobile (max 767px)
+---------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .nav-bar { gap: 5%; }
+
+  .nav-left,
+  .nav-right { gap: 8px; }
+
+  .nav-link {
+    padding: 7px 10px;
+    font-size: 0.85em;
+  }
+
+  .page-header {
+    max-width: 100%;
+    padding: 20px 4%;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    animation: none;
+  }
+
+  h2 { font-size: 1rem; }
+
+  .carousel {
+    max-width: 100%;
+    height: 500px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .carousel-item {
+    height: 350px;
+    margin-top: 30%;
+    margin-bottom: 10%;
+  }
+
+  .carousel-item img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .info {
+    padding: 10px;
+  }
+
+  .info h2 { font-size: 0.9rem; }
+  .info p  { font-size: 0.75rem; }
+
+  .carousel-control {
+    font-size: 25px;
+    height: 30px;
+    width: 30px;
+  }
+}
+
+/* ----------------------------------------------------------------
+   RESPONSIVE — Tablet (768px–1023px)
+---------------------------------------------------------------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .nav-bar { gap: 25%; }
+
+  .carousel {
+    max-width: 90%;
+    height: 700px;
+  }
+
+  .carousel-item { height: 550px; }
+}

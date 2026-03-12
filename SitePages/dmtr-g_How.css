@@ -1,0 +1,348 @@
+/* ================================================================
+   FILE:    dmtr-g_How.css
+   PROJECT: Diving as a Hobby
+   AUTHOR:  dmtr-g
+   DESC:    How to Dive page styles — glassmorphism table layout,
+            depth-scale column with staggered arrow animations,
+            image cells, and responsive collapse to single column.
+   THEME:   Dark underwater / deep ocean (shared design tokens)
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   DESIGN TOKENS
+---------------------------------------------------------------- */
+:root {
+  --bg-deep:        #030a0f;
+  --glass-bg:       rgba(0, 20, 40, 0.70);
+  --glass-border:   rgba(0, 229, 255, 0.2);
+
+  --cyan:           #00e5ff;
+  --cyan-dim:       rgba(0, 229, 255, 0.15);
+  --cyan-glow:      0 0 12px rgba(0, 229, 255, 0.7), 0 0 30px rgba(0, 229, 255, 0.3);
+  --cyan-glow-soft: 0 0 8px rgba(0, 229, 255, 0.4);
+
+  --text-primary:   #e0f7fa;
+  --text-muted:     #80cbc4;
+
+  --radius-pill:    50px;
+  --radius-card:    16px;
+  --transition:     0.25s ease;
+  --backdrop:       blur(12px);
+}
+
+/* ----------------------------------------------------------------
+   RESET & BASE
+---------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg-deep);
+  /* Underwater background photo */
+  background-image: url("../Media/page-assets/pexels-elianne-dipp-4666754.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+}
+
+/* ----------------------------------------------------------------
+   NAVIGATION BAR (top + bottom, shared styles)
+---------------------------------------------------------------- */
+.nav-bar {
+  display: flex;
+  justify-content: center;
+  gap: 40%;
+  padding: 16px 20px;
+}
+
+.nav-left,
+.nav-right {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+}
+
+/* Glassmorphism nav pill */
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  padding: 10px 14px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  backdrop-filter: var(--backdrop);
+  -webkit-backdrop-filter: var(--backdrop);
+  color: var(--cyan);
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: var(--cyan-glow-soft);
+  transition: background var(--transition), box-shadow var(--transition), border-color var(--transition);
+  overflow: hidden;
+}
+
+.nav-link:hover {
+  background: var(--cyan-dim);
+  border-color: var(--cyan);
+  box-shadow: var(--cyan-glow);
+}
+
+.nav-label {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.92em;
+  font-weight: bold;
+  opacity: 0;
+  margin-left: 0;
+  vertical-align: middle;
+  transition: max-width 0.30s ease, opacity 0.25s ease, margin-left 0.30s ease;
+}
+
+.nav-link:hover .nav-label { max-width: 160px; opacity: 1; margin-left: 7px; }
+
+/* ----------------------------------------------------------------
+   PAGE TITLE
+---------------------------------------------------------------- */
+h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(1.4rem, 3vw, 3rem);
+  color: var(--cyan);
+  text-shadow: var(--cyan-glow);
+  text-align: right;
+  padding: 2% 5%;
+  animation: titleWave 10s ease-in-out infinite;
+}
+
+/* ----------------------------------------------------------------
+   STEP HEADINGS
+---------------------------------------------------------------- */
+h2 {
+  color: var(--cyan);
+  text-shadow: var(--cyan-glow-soft);
+  margin: 20px 0 10px;
+  font-size: clamp(1rem, 2.5vw, 2rem);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: scalePulse 10s ease-in-out infinite;
+}
+
+h3 {
+  color: var(--cyan);
+  font-size: clamp(0.8rem, 1.2vw, 1.1rem);
+  margin: 10px 0 4px;
+}
+
+h3 a {
+  color: var(--cyan);
+  text-shadow: var(--cyan-glow-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition);
+}
+
+h3 a:hover { color: #fff; }
+
+p {
+  color: var(--text-muted);
+  font-size: clamp(0.75rem, 1vw, 0.95rem);
+  line-height: 1.7;
+  text-align: justify;
+  margin-bottom: 8px;
+}
+
+/* ----------------------------------------------------------------
+   MAIN STEPS TABLE
+   3 columns: content | depth scale | image (alternating layout)
+---------------------------------------------------------------- */
+table {
+  width: 80%;
+  margin: 5% auto;
+  border-spacing: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  backdrop-filter: var(--backdrop);
+  -webkit-backdrop-filter: var(--backdrop);
+}
+
+th,
+td {
+  padding: 20px;
+  text-align: left;
+  border: none;
+  vertical-align: top;
+}
+
+/* Cyan divider between table columns */
+td + td {
+  border-left: 4px solid rgba(0, 229, 255, 0.3);
+}
+
+/* Image cells — top border accent */
+.img-cell {
+  border-top: 4px solid rgba(0, 229, 255, 0.3);
+  vertical-align: middle;
+}
+
+.img-cell img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+  border: 1px solid var(--glass-border);
+  transition: box-shadow var(--transition);
+}
+
+.img-cell img:hover {
+  box-shadow: 0 0 35px rgba(0, 229, 255, 0.25);
+}
+
+/* ----------------------------------------------------------------
+   DEPTH SCALE COLUMN
+   Narrow column with depth labels + staggered animated arrows
+---------------------------------------------------------------- */
+.scale-cell {
+  border-top: 4px solid rgba(0, 229, 255, 0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: var(--cyan);
+  font-size: clamp(0.65rem, 1vw, 0.9rem);
+  width: 1%;
+}
+
+/* Down arrows that pulse to simulate descent */
+.fa-arrow-alt-circle-down {
+  display: block;
+  margin: 6px auto;
+  opacity: 0;
+  color: var(--cyan);
+  text-shadow: var(--cyan-glow-soft);
+  animation: arrowPulse 2s ease-in-out infinite;
+}
+
+.fa-arrow-alt-circle-down:nth-child(2) { animation-delay: 0.2s; }
+.fa-arrow-alt-circle-down:nth-child(3) { animation-delay: 0.4s; }
+.fa-arrow-alt-circle-down:nth-child(4) { animation-delay: 0.6s; }
+.fa-arrow-alt-circle-down:nth-child(5) { animation-delay: 0.8s; }
+.fa-arrow-alt-circle-down:nth-child(6) { animation-delay: 1.0s; }
+
+/* ----------------------------------------------------------------
+   KEYFRAME ANIMATIONS
+---------------------------------------------------------------- */
+
+/* Page title drifts left/right */
+@keyframes titleWave {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(-25px); }
+  100% { transform: translateX(0); }
+}
+
+/* Step headings breathe in scale */
+@keyframes scalePulse {
+  0%   { transform: scale(0.97); }
+  50%  { transform: scale(1); }
+  100% { transform: scale(0.97); }
+}
+
+/* Depth arrows flow downward sequentially */
+@keyframes arrowPulse {
+  0%   { opacity: 0; }
+  50%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ----------------------------------------------------------------
+   RESPONSIVE — Mobile (max 757px)
+   Collapse table to vertical single-column layout
+---------------------------------------------------------------- */
+@media only screen and (max-width: 757px) {
+  .nav-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-left,
+  .nav-right { gap: 8px; }
+
+  .nav-link {
+    padding: 7px 10px;
+    font-size: 0.85em;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+    text-align: center;
+    animation: none;
+    padding: 4%;
+  }
+
+  h2 { font-size: 1rem; animation: none; }
+  h3 { font-size: 0.85rem; }
+  p  { font-size: 0.8rem; }
+
+  table {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  th,
+  td {
+    display: flex;
+    flex-direction: column;
+    border: 0;
+    padding: 12px;
+  }
+
+  td + td { border-left: none; }
+
+  .scale-cell {
+    text-align: center;
+    font-size: 3vw;
+    border: 0;
+  }
+
+  /* Hide depth arrows on mobile — save space */
+  .fa-arrow-alt-circle-down { display: none; }
+
+  .img-cell {
+    text-align: center;
+    border: 0;
+  }
+}
+
+/* ----------------------------------------------------------------
+   RESPONSIVE — Tablet (768px–1023px)
+---------------------------------------------------------------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .nav-bar { gap: 20%; }
+
+  table { width: 95%; }
+
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 0.95rem; }
+  p  { font-size: 0.85rem; }
+}
